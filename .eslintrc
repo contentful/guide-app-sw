@@ -1,0 +1,28 @@
+env:
+  browser: true
+  node: true
+ecmaFeatures:
+  jsx: true
+  arrowFunctions: true
+  binaryLiterals: true
+  blockBindings: true
+  defaultParams: true
+  forOf: true
+  generators: true
+  objectLiteralComputedProperties: true
+  objectLiteralDuplicateProperties: true
+  objectLiteralShorthandMethods: true
+  objectLiteralShorthandProperties: true
+  octalLiterals: true
+  regexUFlag: true
+  regexYFlag: true
+  superInFunctions: true
+  templateStrings: true
+  unicodeCodePointEscapes: true
+  globalReturn: true
+rules:
+  browser: true
+  node: true
+  no-unused-vars: 1
+  strict: [2, "never"]
+  quotes: "single"
