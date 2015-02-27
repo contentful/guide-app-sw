@@ -41,7 +41,7 @@ $(app_index):
 
 $(app_js): $(source_js_files)
 	mkdir -p $(dir $@)
-	browserify $(js_debug) -t 6to5ify -t reactify $(source_app_js) > $@
+	browserify $(js_debug) -t babelify -t reactify $(source_app_js) > $@
 
 $(app_css): $(source_css_files)
 	mkdir -p $(dir $@)

@@ -1,4 +1,7 @@
 const React = require('react');
-const App = require('./components/app');
+const App = React.createFactory(require('./components/app'));
 
-React.renderComponent(<App path="/" />, document.getElementById('appContainer'));
+React.render(
+  App({path: window.location.pathname, source: 'server'}),
+  document.getElementById('appContainer')
+);
