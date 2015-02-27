@@ -14,11 +14,17 @@ module.exports = React.createClass({
     };
   },
 
+  // This method always renders on the server so we use it to set the state
+  // if we managed to fetch any data for the initial server render
   componentWillMount() {
     if(this.props.initialData)
       this.setState({entries: this.props.initialData});
   },
 
+  // This method only runs on the client, so if we have no initial data
+  // we'll fetch it here
+  // On first render, if it was rendered on the server it should've also
+  // been passed down via this.props.initialData
   componentDidMount() {
     if(!this.props.initialData) {
       dispatcher.register(payload => {
@@ -42,7 +48,6 @@ module.exports = React.createClass({
             <li><Link href="/list">List</Link></li>
           </ul>
         </nav>
-        <p>{this.props.source}</p>
 
         <Locations path={this.props.path}>
           <Location path="/" handler={Home} />

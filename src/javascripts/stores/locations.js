@@ -13,6 +13,7 @@ module.exports = (contentful, dispatcher) => {
 
   dispatcher.register(payload => {
     if(payload.actionType === 'get-initial-data'){
+      // Kind of pattern matching
       actions.forEach((action, re) => {
         if(re.test(payload.path)) action();
       });
