@@ -1,4 +1,5 @@
 {
   "accessToken": "ACCESS_TOKEN",
-  "space": "SPACE_ID"
+  "space": "SPACE_ID",
+  "port": 6001
 }
