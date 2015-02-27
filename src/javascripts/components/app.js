@@ -2,24 +2,20 @@ const React = require('react');
 const Router = require('react-router-component');
 const {Locations, Location} = Router;
 
-const Home = require('./components/home');
+const Home = require('./home');
 
-const App = React.createClass({
+module.exports = React.createClass({
   render() {
     return (
       <main>
         <nav>
-          Some nav maybe and some others
+          Nav v2
         </nav>
 
-        <Locations>
+        <Locations path={this.props.path}>
           <Location path="/" handler={Home}/>
         </Locations>
       </main>
     );
   }
 });
-
-
-React.renderComponent(<App/>, document.getElementById('appContainer'));
-
