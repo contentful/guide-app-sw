@@ -7,7 +7,7 @@ source_css_path      = $(source_dir)/stylesheets
 
 source_index           = $(source_dir)/index.html
 source_js_files        = $(shell find $(source_js_path) -name "*.js")
-source_app_js          = $(source_js_path)/main.js
+source_app_js          = $(source_js_path)/client.js
 source_css_files       = $(shell find $(source_css_path) -name "*.styl")
 source_main_css        = $(source_css_path)/main.styl
 
