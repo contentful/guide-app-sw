@@ -6,19 +6,17 @@
   "version": "0.0.1",
   "main": "app.js",
   "dependencies": {
+    "react": "^0.12.2",
     "babel": "^4.6.0",
     "babelify": "^5.0.3",
     "contentful": "^0.1.2",
     "express": "^4.8.0",
     "flux": "^2.0.1",
     "immutable": "^3.6.2",
-    "react-async": "^2.0.1",
     "react-router-component": "^0.24.1"
   },
   "devDependencies": {
     "browserify": "^8.1.0",
-    "react": "^0.12.2",
-    "reactify": "^0.17.1",
     "stylus": "^0.49.3"
   }
 }

@@ -48,7 +48,7 @@ $(sw_js):
 
 $(app_js): $(source_js_files)
 	mkdir -p $(dir $@)
-	browserify $(js_debug) -t babelify -t reactify $(source_app_js) > $@
+	browserify $(js_debug) -t babelify $(source_app_js) > $@
 	cp $(source_js_path)/serviceworker-cache-polyfill.js build/js/
 
 $(app_css): $(source_css_files)
