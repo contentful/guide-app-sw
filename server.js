@@ -30,8 +30,9 @@ server.use('/css', express.static(path.join(__dirname, 'build', 'css')));
 server.get('/*', function (req, res) {
   var App = React.createFactory(require('./src/javascripts/components/app'));
   var navpath = url.parse(req.url).pathname;
+
   dispatcher.register(function(payload) {
-    if(payload.actionType === 'set-initial-data'){
+    if(payload.actionType === 'received-initial-data' && !res.headersSent){
       // Initialize the main app component in the server with data for the requested route
       var client = App({path: navpath, initialData: payload.initialData});
       var markup = React.renderToString(client);

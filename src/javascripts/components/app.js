@@ -10,32 +10,15 @@ const List = require('./list');
 module.exports = React.createClass({
   getInitialState() {
     return {
-      entries: []
+      initialData: null
     };
   },
 
   // This method always renders on the server so we use it to set the state
   // if we managed to fetch any data for the initial server render
   componentWillMount() {
-    if(this.props.initialData)
-      this.setState({entries: this.props.initialData});
-  },
-
-  // This method only runs on the client, so if we have no initial data
-  // we'll fetch it here
-  // On first render, if it was rendered on the server it should've also
-  // been passed down via this.props.initialData
-  componentDidMount() {
-    if(!this.props.initialData) {
-      dispatcher.register(payload => {
-        if(payload.actionType === 'set-initial-data'){
-          this.setState({entries: payload.initialData});
-        }
-      });
-      dispatcher.dispatch({
-        actionType: 'get-initial-data',
-        path: this.props.path
-      });
+    if(this.props.initialData){
+      this.setState({initialData: this.props.initialData});
     }
   },
 
@@ -51,7 +34,7 @@ module.exports = React.createClass({
 
         <Locations path={this.props.path}>
           <Location path="/" handler={Home} />
-          <Location path="/list" handler={List} entries={this.state.entries} />
+          <Location path="/list" handler={List} entries={this.state.initialData} />
         </Locations>
       </main>
     );
