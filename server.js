@@ -22,6 +22,9 @@ require('./src/javascripts/stores/locations')(contentfulClient, dispatcher);
 
 var server = express();
 
+server.get('/sw.js', function (req, res) {
+  res.sendFile('build/sw.js', {root: __dirname});
+});
 server.use('/js', express.static(path.join(__dirname, 'build', 'js')));
 server.use('/css', express.static(path.join(__dirname, 'build', 'css')));
 
@@ -46,6 +49,7 @@ server.get('/*', function (req, res) {
               );
     }
   });
+
   // Fire up the initial data request based on the current route
   dispatcher.dispatch({
     actionType: 'get-initial-data',
