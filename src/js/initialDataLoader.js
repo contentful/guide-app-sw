@@ -7,17 +7,16 @@
  */
 
 const Promise = require('es6-promise').Promise;
+const Immutable = require('immutable');
+
+const routes = require('./routes');
 
 const locationStore = require('./stores/locations');
 const locationActions = require('./actions/locations');
 
-let actions = new Map();
+let dataRoutes = Immutable.OrderedMap();
 
-actions.set(/\/$/, () => {
-  return Promise.resolve(null);
-});
-
-actions.set(/list$/, () => {
+setDataHandler('list', () => {
   return new Promise((resolve) => {
     locationStore.listen(function (locations) {
       resolve(locations);
@@ -26,13 +25,18 @@ actions.set(/list$/, () => {
   });
 });
 
-module.exports = {
-  load(navpath) {
-    for(let [re, action] of actions.entries()){
-      if(re.test(navpath)){
-        return action();
-      }
+setDataHandler('home', () => {
+  return Promise.resolve(null);
+});
+
+function setDataHandler(routeName, handler) {
+  dataRoutes = dataRoutes.set(routes.get(routeName), handler);
+}
+
+module.exports = (navpath) => {
+  for(let [re, dataFetcher] of dataRoutes.entries()){
+    if(re.test(navpath)){
+      return dataFetcher();
     }
   }
-
 };

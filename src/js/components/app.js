@@ -2,6 +2,8 @@ const React = require('react');
 const Router = require('react-router-component');
 const {Locations, Location, Link} = Router;
 
+const routes = require('../routes');
+
 const Home = require('./home');
 const List = require('./list');
 
@@ -31,8 +33,8 @@ module.exports = React.createClass({
         </nav>
 
         <Locations path={this.props.path}>
-          <Location path="/" handler={Home} />
-          <Location path="/list" handler={List} entries={this.state.initialData} />
+          <Location path={routes.get('list')} handler={List} entries={this.state.initialData} />
+          <Location path={routes.get('home')} handler={Home} />
         </Locations>
       </main>
     );
