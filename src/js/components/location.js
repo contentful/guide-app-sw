@@ -1,5 +1,4 @@
 const React = require('react');
-const Link = require('react-router-component').Link;
 const Reflux = require('reflux');
 
 const locationStore = require('../stores/location');
@@ -33,8 +32,7 @@ module.exports = React.createClass({
   render() {
     return (
       <div>
-        <Link href="/">Home</Link>
-        <Header title={this.state.location.fields.name} />
+        <Header title={this.state.location.fields.name} actionLocation="/" />
         <div className="content">
           <p>Type: {this.state.location.fields.type}</p>
           <p>Description: {this.state.location.fields.description}</p>
