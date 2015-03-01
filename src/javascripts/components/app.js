@@ -2,8 +2,6 @@ const React = require('react');
 const Router = require('react-router-component');
 const {Locations, Location, Link} = Router;
 
-const dispatcher = require('../dispatcher');
-
 const Home = require('./home');
 const List = require('./list');
 

@@ -7,18 +7,13 @@ var fs = require('fs');
 var url = require('url');
 var path = require('path');
 
-var contentful = require('contentful');
+var config = require('./config.json');
 
 // Contentful client setup on the server
-var config = require('./config.json');
-var contentfulClient = contentful.createClient({
-  accessToken: config.accessToken,
-  space: config.space
-});
+var contentful = require('./src/javascripts/contentful');
+contentful.init(config);
 
-// Dispatcher and stores setup
-var dispatcher = require('./src/javascripts/dispatcher');
-require('./src/javascripts/stores/locations')(contentfulClient, dispatcher);
+var initialDataRoutes = require('./src/javascripts/initialDataRoutes');
 
 var server = express();
 
@@ -34,26 +29,18 @@ server.get('/*', function (req, res) {
   var App = React.createFactory(require('./src/javascripts/components/app'));
   var navpath = url.parse(req.url).pathname;
 
-  dispatcher.register(function(payload) {
-    if(payload.actionType === 'received-initial-data' && !res.headersSent){
-      // Initialize the main app component in the server with data for the requested route
-      var client = App({path: navpath, initialData: payload.initialData});
-      var markup = React.renderToString(client);
-      res.type('html');
-      var index = fs.readFileSync('build/index.html', 'utf-8');
-      // Quick and dirty templating
-      res.send(index
-               .replace('<!--MARKUP-->', markup)
-               .replace('<!--CONFIG-->', JSON.stringify(config))
-               .replace('<!--INITIALDATA-->', payload.initialData ? JSON.stringify(payload.initialData) : 'null')
-              );
-    }
-  });
-
-  // Fire up the initial data request based on the current route
-  dispatcher.dispatch({
-    actionType: 'get-initial-data',
-    path: navpath
+  // Initialize the main app component in the server with data for the requested route
+  initialDataRoutes.load(navpath).then(function (initialData) {
+    var client = App({path: navpath, initialData: initialData});
+    var markup = React.renderToString(client);
+    res.type('html');
+    var index = fs.readFileSync('build/index.html', 'utf-8');
+    // Quick and dirty templating
+    res.send(index
+             .replace('<!--MARKUP-->', markup)
+             .replace('<!--CONFIG-->', JSON.stringify(config))
+             .replace('<!--INITIALDATA-->', initialData ? JSON.stringify(initialData) : 'null')
+            );
   });
 });
 

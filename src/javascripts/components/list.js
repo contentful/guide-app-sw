@@ -1,7 +1,12 @@
 const React = require('react');
-const dispatcher = require('../dispatcher');
+const Reflux = require('reflux');
+
+const locationStore = require('../stores/locations');
+const locationActions = require('../actions/locations');
 
 module.exports = React.createClass({
+  mixins: [Reflux.connect(locationStore, 'entries')],
+
   getInitialState() {
     return {entries: []};
   },
@@ -13,14 +18,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount() {
-    dispatcher.register(payload => {
-      if(payload.actionType === 'received-entries'){
-        this.setState({entries: payload.entries});
-      }
-    });
-    if(this.state.entries.length === 0){
-      dispatcher.dispatch({ actionType: 'get-entries' });
-    }
+    locationActions.load();
   },
 
   render() {
