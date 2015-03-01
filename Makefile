@@ -2,8 +2,8 @@ export PATH := ./node_modules/.bin:$(PATH)
 export SHELL := /bin/bash
 
 source_dir           = src
-source_js_path       = $(source_dir)/javascripts
-source_css_path      = $(source_dir)/stylesheets
+source_js_path       = $(source_dir)/js
+source_css_path      = $(source_dir)/css
 
 source_index           = $(source_dir)/index.html
 source_js_files        = $(shell find $(source_js_path) -name "*.js")

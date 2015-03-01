@@ -10,10 +10,10 @@ var path = require('path');
 var config = require('./config.json');
 
 // Contentful client setup on the server
-var contentful = require('./src/javascripts/contentful');
+var contentful = require('./src/js/contentful');
 contentful.init(config);
 
-var initialDataRoutes = require('./src/javascripts/initialDataRoutes');
+var initialDataLoader = require('./src/js/initialDataLoader');
 
 var server = express();
 
@@ -26,11 +26,11 @@ server.use('/css', express.static(path.join(__dirname, 'build', 'css')));
 // We have only one HTML file and we'll let React take care of routing
 // So we'll handle everything here that isn't a static resource
 server.get('/*', function (req, res) {
-  var App = React.createFactory(require('./src/javascripts/components/app'));
+  var App = React.createFactory(require('./src/js/components/app'));
   var navpath = url.parse(req.url).pathname;
 
   // Initialize the main app component in the server with data for the requested route
-  initialDataRoutes.load(navpath).then(function (initialData) {
+  initialDataLoader(navpath).then(function (initialData) {
     var client = App({path: navpath, initialData: initialData});
     var markup = React.renderToString(client);
     res.type('html');
