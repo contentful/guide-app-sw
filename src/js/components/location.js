@@ -30,12 +30,19 @@ module.exports = React.createClass({
   },
 
   render() {
+    var fields = this.state.location.fields;
     return (
       <div>
-        <Header title={this.state.location.fields.name} actionLocation="/" />
+        <Header title={fields.name} actionLocation="/" />
         <div className="content">
-          <p>Type: {this.state.location.fields.type}</p>
-          <p>Description: {this.state.location.fields.description}</p>
+          <p><img src={fields.pictures[0].fields.file.url} /></p>
+          <p>{fields.type}</p>
+          <p>Description: {fields.description}</p>
+          <p>Opening times: {fields.openingTimes}</p>
+          <p>Address: {fields.address}</p>
+          <p>Phone: {fields.phoneNumber}</p>
+          <p>Website: {fields.url}</p>
+          <p>Email: {fields.email}</p>
         </div>
       </div>
     );

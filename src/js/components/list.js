@@ -30,8 +30,9 @@ module.exports = React.createClass({
     const items = this.state.locations.map(item => {
       return (
         <li key={item.sys.id}>
-          <p><Link href={'/location/' + item.sys.id}>{item.fields.name}</Link></p>
-          <p>{item.fields.type}</p>
+          <p className="list__name"><Link href={'/location/' + item.sys.id}>{item.fields.name}</Link></p>
+          <p className="list__type">{item.fields.type}</p>
+          <p className="list__rating">{item.fields.rating}</p>
         </li>
       );
     });
