@@ -3,12 +3,16 @@ const contentful = require('../contentful').client();
 const locationActions = require('../actions/locations');
 
 module.exports = Reflux.createStore({
-  listenables: locationActions,
+  init() {
+    this.listenTo(locationActions.loadAll, this.onLoadAll);
+  },
 
-  onLoad() {
-    contentful.entries().then(entries => {
+  onLoadAll() {
+    contentful.entries()
+    .then(entries => {
       this.locations = entries;
       this.trigger(entries);
     });
   }
+
 });

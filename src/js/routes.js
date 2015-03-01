@@ -1,6 +1,6 @@
 const Immutable = require('immutable');
 
-module.exports = Immutable.Map({
-  home: /\//,
-  list: /\/list/
+module.exports = Immutable.OrderedMap({
+  location: /\/location\/([\w|\d]*)/,
+  list: /\//
 });

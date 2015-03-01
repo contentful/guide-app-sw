@@ -29,18 +29,26 @@ server.get('/*', function (req, res) {
   var App = React.createFactory(require('./src/js/components/app'));
   var navpath = url.parse(req.url).pathname;
 
+
   // Initialize the main app component in the server with data for the requested route
   initialDataLoader(navpath).then(function (initialData) {
-    var client = App({path: navpath, initialData: initialData});
-    var markup = React.renderToString(client);
     res.type('html');
-    var index = fs.readFileSync('build/index.html', 'utf-8');
-    // Quick and dirty templating
-    res.send(index
-             .replace('<!--MARKUP-->', markup)
-             .replace('<!--CONFIG-->', JSON.stringify(config))
-             .replace('<!--INITIALDATA-->', initialData ? JSON.stringify(initialData) : 'null')
-            );
+    var client = App({path: navpath, initialData: initialData});
+    try {
+      var markup = React.renderToString(client);
+      var index = fs.readFileSync('build/index.html', 'utf-8');
+      // Quick and dirty templating
+      res.send(index
+               .replace('<!--MARKUP-->', markup)
+               .replace('<!--CONFIG-->', JSON.stringify(config))
+               .replace('<!--INITIALDATA-->', initialData ? JSON.stringify(initialData) : 'null')
+              );
+    } catch(err) {
+      var message = 'Rendering error: ' + err.message;
+      console.log(message);
+      console.log(err);
+      res.status(500).send(message);
+    }
   });
 });
 
