@@ -12,7 +12,7 @@ module.exports = React.createClass({
   getInitialState() {
     return {
       location: {
-        fields: {}
+        fields: null
       }
     };
   },
@@ -30,10 +30,11 @@ module.exports = React.createClass({
   },
 
   render() {
-    var fields = this.state.location.fields;
-    return (
-      <div>
-        <Header title={fields.name} actionLocation="/" />
+    const fields = this.state.location.fields;
+    let content = '', name = '';
+    if(fields){
+      name = fields.name;
+      content = (
         <div className="content">
           <p><img src={fields.pictures[0].fields.file.url} /></p>
           <p>{fields.type}</p>
@@ -44,6 +45,13 @@ module.exports = React.createClass({
           <p>Website: {fields.url}</p>
           <p>Email: {fields.email}</p>
         </div>
+      );
+    }
+
+    return (
+      <div>
+        <Header title={name} actionLocation="/" />
+        {content}
       </div>
     );
   }

@@ -55,4 +55,5 @@ module.exports = (navpath) => {
       });
     }
   }
+  return Promise.resolve();
 };
