@@ -33,6 +33,7 @@ Contentful client library which we will fix soon:
 
 Also:
 * Add live demo
+* More styling and functionality
 * Write an in depth blog post about how the app is structured
 
 # Usage
