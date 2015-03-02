@@ -7,19 +7,19 @@ const List = require('./list');
 const Location = require('./location');
 
 module.exports = React.createClass({
-  // getInitialState() {
-  //   return {
-  //     initialData: null
-  //   };
-  // },
+  getInitialState() {
+    return {
+      initialData: null
+    };
+  },
 
-  // // This method always renders on the server so we use it to set the state
-  // // if we managed to fetch any data for the initial server render
-  // componentWillMount() {
-  //   if(this.props.initialData){
-  //     this.setState({initialData: this.props.initialData});
-  //   }
-  // },
+  // This method always renders on the server so we use it to set the state
+  // if we managed to fetch any data for the initial server render
+  componentWillMount() {
+    if(this.props.initialData){
+      this.setState({initialData: this.props.initialData});
+    }
+  },
 
   render() {
     return (
