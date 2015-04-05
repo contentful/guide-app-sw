@@ -11,16 +11,15 @@ const Immutable = require('immutable');
 
 const routes = require('./routes');
 
-const locationStore = require('./stores/location');
 const locationsStore = require('./stores/locations');
 const locationActions = require('./actions/locations');
 
-let dataRoutes = Immutable.OrderedMap();
+let dataRoutes = Immutable.Map();
 
 setDataHandler('location', (id) => {
   return new Promise((resolve) => {
-    locationStore.listen(function (locations) {
-      resolve(locations);
+    locationsStore.listen(function () {
+      resolve(locationsStore.get(id));
     });
     locationActions.loadOne(id);
   });
@@ -28,8 +27,8 @@ setDataHandler('location', (id) => {
 
 setDataHandler('list', () => {
   return new Promise((resolve) => {
-    locationsStore.listen(function (locations) {
-      resolve(locations);
+    locationsStore.listen(function () {
+      resolve(locationsStore.getAll());
     });
     locationActions.loadAll();
   });

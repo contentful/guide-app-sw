@@ -1,13 +1,19 @@
 const React = require('react');
 const Reflux = require('reflux');
 
-const locationStore = require('../stores/location');
+const locationsStore = require('../stores/locations');
 const locationActions = require('../actions/locations');
 
 const Header = require('./header');
 
 module.exports = React.createClass({
-  mixins: [Reflux.connect(locationStore, 'location')],
+  mixins: [Reflux.connectFilter(
+    locationsStore,
+    'location',
+    function(){
+      return locationsStore.get(this.props.id) || this.state.location;
+    }
+  )],
 
   getInitialState() {
     return {

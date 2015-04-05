@@ -8,7 +8,7 @@
   "dependencies": {
     "babel": "^4.6.0",
     "babelify": "^5.0.3",
-    "contentful": "^0.1.2",
+    "contentful": "^1.1.1",
     "es6-promise": "^2.0.1",
     "express": "^4.8.0",
     "immutable": "^3.6.2",

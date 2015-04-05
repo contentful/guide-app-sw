@@ -11,7 +11,7 @@ module.exports = React.createClass({
   mixins: [Reflux.connect(locationsStore, 'locations')],
 
   getInitialState() {
-    return {locations: []};
+    return {locations: locationsStore.getAll()};
   },
 
   componentWillMount() {
