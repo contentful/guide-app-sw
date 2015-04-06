@@ -3,7 +3,6 @@ const Reflux = require('reflux');
 const Link = require('react-router-component').Link;
 
 const locationsStore = require('../stores/locations');
-const locationActions = require('../actions/locations');
 
 const Header = require('./header');
 
@@ -14,20 +13,8 @@ module.exports = React.createClass({
     return {locations: locationsStore.getAll()};
   },
 
-  componentWillMount() {
-    if(this.props.initialData &&
-       this.props.initialData.data.length > 0 &&
-       this.props.initialData.name === 'list'){
-      this.setState({locations: this.props.initialData.data});
-    }
-  },
-
-  componentDidMount() {
-    locationActions.loadAll();
-  },
-
   render() {
-    const items = this.state.locations.map(item => {
+    const items = this.state.locations.toJS().map(item => {
       return (
         <li key={item.sys.id}>
           <p className="list__name"><Link href={'/location/' + item.sys.id}>{item.fields.name}</Link></p>

@@ -30,7 +30,7 @@ setDataHandler('list', () => {
     locationsStore.listen(function () {
       resolve(locationsStore.getAll());
     });
-    locationActions.loadAll();
+    locationActions.loadPage();
   });
 });
 
@@ -45,13 +45,7 @@ module.exports = (navpath) => {
   for(let [re, route] of dataRoutes.entries()){
     const matched = re.exec(navpath);
     if(matched){
-      return route.handler(...matched.slice(1, matched.length))
-      .then(result => {
-        return {
-          name: route.name,
-          data: result
-        };
-      });
+      return route.handler(...matched.slice(1, matched.length));
     }
   }
   return Promise.resolve();

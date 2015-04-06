@@ -2,7 +2,6 @@ const React = require('react');
 const Reflux = require('reflux');
 
 const locationsStore = require('../stores/locations');
-const locationActions = require('../actions/locations');
 
 const Header = require('./header');
 
@@ -17,26 +16,12 @@ module.exports = React.createClass({
 
   getInitialState() {
     return {
-      location: {
-        fields: null
-      }
+      location: locationsStore.get(this.props.id)
     };
   },
 
-  componentWillMount() {
-    if(this.props.initialData &&
-       this.props.initialData.data &&
-       this.props.initialData.name === 'location'){
-      this.setState({location: this.props.initialData.data});
-    }
-  },
-
-  componentDidMount() {
-    locationActions.loadOne(this.props.id);
-  },
-
   render() {
-    const fields = this.state.location.fields;
+    const fields = this.state.location.get('fields').toJS();
     let content = '', name = '';
     if(fields){
       name = fields.name;

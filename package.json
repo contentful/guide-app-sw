@@ -12,6 +12,7 @@
     "es6-promise": "^2.0.1",
     "express": "^4.8.0",
     "immutable": "^3.6.2",
+    "lodash": "^3.6.0",
     "react": "^0.12.2",
     "react-router-component": "^0.24.1",
     "reflux": "^0.2.5"
