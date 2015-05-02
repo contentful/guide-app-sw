@@ -45,8 +45,9 @@ module.exports = (navpath) => {
   for(let [re, route] of dataRoutes.entries()){
     const matched = re.exec(navpath);
     if(matched){
+      console.log('matched route', navpath);
       return route.handler(...matched.slice(1, matched.length));
     }
   }
-  return Promise.resolve();
+  return Promise.reject();
 };
