@@ -31,7 +31,7 @@ server.get('/*', function (req, res) {
 
 
   // Initialize the main app component in the server with data for the requested route
-  initialDataLoader(navpath).then(function (initialData) {
+  initialDataLoader.handleServerData(navpath).then(function (initialData) {
     res.type('html');
     var client = App({path: navpath, initialData: initialData});
     try {
