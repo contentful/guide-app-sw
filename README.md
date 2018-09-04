@@ -1,3 +1,9 @@
+
+# Deprecation notice
+ 
+This repository is deprecated and no further maintenance is planned. For an React example, please see https://github.com/contentful/gallery-app-react
+
+
 guide-app-sw
 =========
 
